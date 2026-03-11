@@ -1,10 +1,26 @@
 @import "tailwindcss";
 
+/* ─── Retro Theme CSS Variables ──────────────────────────────────────── */
 :root {
-  --color-primary: #000000;
-  --color-secondary: #FFFFFF;
-  --color-accent: #3B82F6;
-  --color-background: #FFFFFF;
+  /* Retro color palette */
+  --retro-bg: #1a1a2e;
+  --retro-surface: #16213e;
+  --retro-surface-2: #0f3460;
+  --retro-primary: #e94560;
+  --retro-secondary: #533483;
+  --retro-accent: #00d2ff;
+  --retro-accent-2: #f5a623;
+  --retro-text: #e0e0e0;
+  --retro-text-dim: #a0a0b0;
+  --retro-border: #533483;
+  --retro-success: #00d2ff;
+  --retro-error: #e94560;
+  --retro-warning: #f5a623;
+
+  /* Retro shadows */
+  --retro-glow: 0 0 10px rgba(233, 69, 96, 0.3);
+  --retro-glow-accent: 0 0 10px rgba(0, 210, 255, 0.3);
+  --retro-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -13,14 +29,276 @@
   margin: 0;
 }
 
-html,
-body {
+html, body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--color-background);
-  color: var(--color-primary);
+  background-color: var(--retro-bg);
+  color: var(--retro-text);
+  font-family: 'Courier New', 'Courier', monospace;
 }
 
-body {
-  font-family: system-ui, -apple-system, sans-serif;
+/* ─── Retro Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--retro-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--retro-border);
+  border-radius: 0;
+  border: 1px solid var(--retro-primary);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--retro-primary); }
+
+/* ─── Retro Utility Classes ────────────────────────────────────────── */
+.retro-panel {
+  background: var(--retro-surface);
+  border: 2px solid var(--retro-border);
+  box-shadow: var(--retro-shadow);
+}
+
+.retro-panel-accent {
+  background: var(--retro-surface);
+  border: 2px solid var(--retro-accent);
+  box-shadow: 4px 4px 0px rgba(0, 210, 255, 0.2);
+}
+
+.retro-btn {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid var(--retro-primary);
+  background: transparent;
+  color: var(--retro-primary);
+  cursor: pointer;
+  padding: 6px 14px;
+  transition: all 0.15s ease;
+}
+
+.retro-btn:hover {
+  background: var(--retro-primary);
+  color: var(--retro-bg);
+  box-shadow: var(--retro-glow);
+}
+
+.retro-btn-accent {
+  border-color: var(--retro-accent);
+  color: var(--retro-accent);
+}
+
+.retro-btn-accent:hover {
+  background: var(--retro-accent);
+  color: var(--retro-bg);
+  box-shadow: var(--retro-glow-accent);
+}
+
+.retro-btn-sm {
+  padding: 3px 8px;
+  font-size: 0.75rem;
+}
+
+.retro-input {
+  background: var(--retro-bg);
+  border: 2px solid var(--retro-border);
+  color: var(--retro-text);
+  font-family: 'Courier New', monospace;
+  padding: 8px 12px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+.retro-input:focus {
+  border-color: var(--retro-accent);
+  box-shadow: var(--retro-glow-accent);
+}
+
+.retro-input::placeholder {
+  color: var(--retro-text-dim);
+}
+
+.retro-label {
+  color: var(--retro-accent);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.retro-heading {
+  color: var(--retro-primary);
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.retro-divider {
+  border: none;
+  border-top: 1px solid var(--retro-border);
+  margin: 8px 0;
+}
+
+/* ─── CRT Scan Lines Effect ──────────────────────────────────────── */
+.crt-effect::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ─── Blinking Cursor ────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.blink-cursor::after {
+  content: '█';
+  animation: blink 1s infinite;
+  color: var(--retro-accent);
+}
+
+/* ─── Retro Tag Badge ────────────────────────────────────────────── */
+.retro-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid currentColor;
+}
+
+/* ─── Markdown Content ───────────────────────────────────────────── */
+.markdown-content {
+  color: var(--retro-text);
+  font-family: 'Courier New', monospace;
+  line-height: 1.7;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  color: var(--retro-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 1rem 0 0.5rem;
+}
+
+.markdown-content p { margin-bottom: 0.75rem; }
+
+.markdown-content code {
+  background: var(--retro-surface-2);
+  color: var(--retro-accent);
+  padding: 2px 6px;
+  font-family: 'Courier New', monospace;
+  border: 1px solid var(--retro-border);
+}
+
+.markdown-content pre {
+  background: var(--retro-surface-2);
+  border: 1px solid var(--retro-border);
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content pre code {
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+.markdown-content blockquote {
+  border-left: 3px solid var(--retro-accent);
+  padding-left: 1rem;
+  color: var(--retro-text-dim);
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content a {
+  color: var(--retro-accent);
+  text-decoration: underline;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content strong { color: var(--retro-accent-2); font-weight: bold; }
+.markdown-content em { color: var(--retro-text-dim); font-style: italic; }
+
+/* ─── Note List Item ────────────────────────────────────────────── */
+.note-item {
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.note-item:hover {
+  border-left-color: var(--retro-accent);
+  background: rgba(0, 210, 255, 0.05);
+}
+
+.note-item.selected {
+  border-left-color: var(--retro-primary);
+  background: rgba(233, 69, 96, 0.1);
+}
+
+.note-item.pinned {
+  border-left-color: var(--retro-accent-2);
+}
+
+/* ─── Sidebar ───────────────────────────────────────────────────── */
+.sidebar-item {
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-item:hover {
+  background: rgba(83, 52, 131, 0.3);
+  color: var(--retro-accent);
+}
+
+.sidebar-item.active {
+  background: rgba(233, 69, 96, 0.2);
+  color: var(--retro-primary);
+  border-left: 2px solid var(--retro-primary);
+}
+
+/* ─── Modal Overlay ─────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-box {
+  background: var(--retro-surface);
+  border: 2px solid var(--retro-primary);
+  box-shadow: 0 0 20px rgba(233, 69, 96, 0.3), var(--retro-shadow);
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
 }
